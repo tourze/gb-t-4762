@@ -82,9 +82,6 @@ class PoliticalAffiliationTest extends TestCase
     {
         $options = PoliticalAffiliation::genOptions();
 
-        // 检查返回结果是否为数组
-        $this->assertIsArray($options);
-
         // 检查数组长度是否与枚举值数量相同
         $this->assertCount(count(PoliticalAffiliation::cases()), $options);
 
