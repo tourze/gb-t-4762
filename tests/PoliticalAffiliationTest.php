@@ -1,11 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Tourze\GBT4762\Tests;
 
-use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\Attributes\CoversClass;
 use Tourze\GBT4762\PoliticalAffiliation;
+use Tourze\PHPUnitEnum\AbstractEnumTestCase;
 
-class PoliticalAffiliationTest extends TestCase
+/**
+ * @internal
+ */
+#[CoversClass(PoliticalAffiliation::class)]
+final class PoliticalAffiliationTest extends AbstractEnumTestCase
 {
     /**
      * 测试枚举值的有效性
@@ -50,17 +57,6 @@ class PoliticalAffiliationTest extends TestCase
     /**
      * 测试 toSelectItem 方法
      */
-    public function testToSelectItem(): void
-    {
-        $expectedItem = [
-            'label' => '中国共产党党员',
-            'text' => '中国共产党党员',
-            'value' => '01',
-            'name' => '中国共产党党员',
-        ];
-
-        $this->assertEquals($expectedItem, PoliticalAffiliation::CPC_MEMBER->toSelectItem());
-    }
 
     /**
      * 测试 toArray 方法
@@ -92,7 +88,7 @@ class PoliticalAffiliationTest extends TestCase
         // 检查选项中是否包含特定值
         $citizenFound = false;
         foreach ($options as $option) {
-            if ($option['value'] === '13' && $option['label'] === '群众') {
+            if ('13' === $option['value'] && '群众' === $option['label']) {
                 $citizenFound = true;
                 break;
             }
@@ -123,7 +119,7 @@ class PoliticalAffiliationTest extends TestCase
             }
         } finally {
             // 恢复环境变量
-            if ($originalEnv === null) {
+            if (null === $originalEnv) {
                 unset($_ENV['enum-display:Tourze\GBT4762\PoliticalAffiliation-13']);
             } else {
                 $_ENV['enum-display:Tourze\GBT4762\PoliticalAffiliation-13'] = $originalEnv;
